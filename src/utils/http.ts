@@ -11,7 +11,7 @@ export class Http {
   constructor() {
     this.accessToken = getAccessTokenFromLS()
     this.instance = axios.create({
-      baseURL: 'https://api-ecom.duthanhduoc.com/',
+      baseURL: 'https://api-ecom.duthanhduoc.com',
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json'
@@ -32,7 +32,8 @@ export class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        if (url === path.login || url === path.register) {
+        console.log(url)
+        if (`/${url}` === path.login || url === path.register) {
           const data = response.data as AuthResponse
           this.accessToken = (response.data as AuthResponse).data.access_token
           setAccessTokenToLS(this.accessToken)
