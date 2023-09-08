@@ -5,8 +5,8 @@ import authApi from 'src/apis/auth.api'
 import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchase'
 import { AppContext } from 'src/contexts/app.context'
-// import { getAvatarUrl } from 'src/utils/utils'
 import Popover from '../Popover'
+import { getAvatarUrl } from 'src/utils/utils'
 // import { useTranslation } from 'react-i18next'
 // import { locales } from 'src/i18n/i18n'
 
@@ -101,7 +101,7 @@ export default function NavHeader() {
           }
         >
           <div className='mr-2 h-6 w-6 flex-shrink-0'>
-            {/* <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' /> */}
+            <img src={getAvatarUrl(profile?.avatar)} alt='avatar' className='h-full w-full rounded-full object-cover' />
           </div>
           <div>{profile?.email}</div>
         </Popover>

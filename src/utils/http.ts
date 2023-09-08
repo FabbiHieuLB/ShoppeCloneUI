@@ -32,7 +32,6 @@ export class Http {
     this.instance.interceptors.response.use(
       (response) => {
         const { url } = response.config
-        console.log(url)
         if (`/${url}` === path.login || url === path.register) {
           const data = response.data as AuthResponse
           this.accessToken = (response.data as AuthResponse).data.access_token
@@ -48,10 +47,12 @@ export class Http {
         if (error.response?.status === HttpStatusCode.UnprocessableEntity) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const data: any | undefined = error.response?.data
-          const message = data.message || error.message
+          const message = data?.message || error.message
           toast.error(message)
         }
-
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
+          clearLS()
+        }
         return Promise.reject(error)
       }
     )
